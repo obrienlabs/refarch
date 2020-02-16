@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.4.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>cloud.dev9</groupId>
+	<artifactId>reference-nbi</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>reference-nbi</name>
+	<description>reference-nbi project</description>
+
+
+	<properties>
+		<java.version>1.8</java.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+        <jackson-2-version>2.10.1</jackson-2-version>
+        <aws-secrets-manager-version>1.11.339</aws-secrets-manager-version>
+        <jersey.version>2.27</jersey.version>
+	</properties>
+
+	<dependencies>
+		<!-- AWS -->
+		<dependency>
+      		<groupId>com.amazonaws</groupId>
+      		<artifactId>aws-java-sdk-secretsmanager</artifactId>
+      		<version>${aws-secrets-manager-version}</version>
+    	</dependency>
+	
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<!--artifactId>spring-boot-starter-data-jpa</artifactId-->
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+        <!-- avoid restarts -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+	 <!-- https://jersey.java.net/documentation/latest/modules-and-dependencies.html -->
+    <dependency>
+        <groupId>javax.ws.rs</groupId>
+        <artifactId>javax.ws.rs-api</artifactId>
+        <version>2.0.1</version>
+    </dependency>
+    <dependency>
+        <groupId>org.glassfish.jersey.containers</groupId>
+        <artifactId>jersey-container-servlet</artifactId>
+        <!--  version>2.27</version-->
+    </dependency>
+    <dependency>
+        <groupId>org.glassfish.jersey.core</groupId>
+        <artifactId>jersey-server</artifactId>
+        </dependency>
+    <dependency>
+        <groupId>org.glassfish.jersey.core</groupId>
+        <artifactId>jersey-client</artifactId>
+        </dependency>
+    <dependency>
+        <groupId>org.glassfish.jersey.media</groupId>
+        <artifactId>jersey-media-multipart</artifactId>
+        </dependency>
+    <!-- fixes http://stackoverflow.com/questions/23442440/messagebodyreader-not-found-for-media-type-application-json -->
+    <dependency>
+        <groupId>org.glassfish.jersey.media</groupId>
+        <artifactId>jersey-media-json-jackson</artifactId>
+        </dependency>
+    <!-- for spring injection in rest -->
+    <dependency>
+        <groupId>org.glassfish.jersey.ext</groupId>
+        <artifactId>jersey-spring3</artifactId>
+        <version>2.23</version>
+        <!-- for https://github.com/JakubStas/SpringWithSwagger/issues/2 -->
+        <exclusions>
+                <exclusion>
+                    <artifactId>spring-context</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-core</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-web</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-beans</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
+    </dependency>
+
+        <!-- json parsing -->
+<!-- the core, which includes Streaming API, shared low-level abstractions (but NOT data-binding) -->
+ <dependency>
+   <groupId>com.fasterxml.jackson.core</groupId>
+   <artifactId>jackson-core</artifactId>
+   </dependency>
+
+ <!-- Just the annotations; use this dependency if you want to attach annotations
+      to classes without connecting them to the code. -->
+ <dependency>
+   <groupId>com.fasterxml.jackson.core</groupId>
+   <artifactId>jackson-annotations</artifactId>
+   </dependency>
+
+<!-- databinding; ObjectMapper, JsonNode and related classes are here -->
+<dependency>
+  <groupId>com.fasterxml.jackson.core</groupId>
+  <artifactId>jackson-databind</artifactId>
+  </dependency>
+
+<!-- smile (binary JSON). Other artifacts in this group do other formats. -->
+<dependency>
+  <groupId>com.fasterxml.jackson.dataformat</groupId>
+  <artifactId>jackson-dataformat-smile</artifactId>
+  </dependency>
+<!-- JAX-RS provider -->
+<dependency>
+   <groupId>com.fasterxml.jackson.jaxrs</groupId>
+   <artifactId>jackson-jaxrs-json-provider</artifactId>
+   </dependency>
+<!-- Support for JAX-B annotations as additional configuration -->
+<dependency>
+  <groupId>com.fasterxml.jackson.module</groupId>
+  <artifactId>jackson-module-jaxb-annotations</artifactId>
+  </dependency>
+    <dependency>
+        <groupId>com.owlike</groupId>
+        <artifactId>genson</artifactId>
+        <version>1.1</version>
+    </dependency>
+    
+    <!--  websocket -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+
+        <!--dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator</artifactId>
+        </dependency-->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>sockjs-client</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>stomp-websocket</artifactId>
+            <version>2.3.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>3.3.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+    
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+    <profiles>
+        <profile>
+            <id>docker</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>0.28.0</version>
+                        <configuration>
+                            <verbose>true</verbose>
+                            <apiVersion>1.23</apiVersion>
+                            <images>
+                                <image>
+                                    <name>${project.artifactId}</name>
+                                    <alias>${project.artifactId}</alias>
+                                    <build>
+                                        <cleanup>try</cleanup>
+                                        <dockerFileDir>${project.basedir}/target/docker-stage</dockerFileDir>
+                                        <tags>
+                                            <tag>${docker.snapshot.tag}</tag>
+                                            <tag>${docker.latest.tag}</tag>
+                                        </tags>
+                                    </build>
+                                </image>
+                            </images>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>generate-images</id>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>push-images</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                    <goal>push</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.github.kongchen</groupId>
+                        <artifactId>swagger-maven-plugin</artifactId>
+                        <version>3.1.7</version>
+                        <configuration>
+                            <apiSources>
+                                <apiSource>
+                                    <locations>
+                                        <location>api</location>
+                                    </locations>
+                                    <basePath>/nbi</basePath>
+                                    <info>
+                                        <title>Difference NBI</title>
+                                        <version>${project.version}</version>
+                                        <termsOfService>http://difference.cloud</termsOfService>
+                                    </info>
+                                    <securityDefinitions>
+                                        <securityDefinition>
+                                            <name>basicAuth</name>
+                                            <type>basic</type>
+                                        </securityDefinition>
+                                    </securityDefinitions>
+                                    <swaggerDirectory>${swagger.directory}</swaggerDirectory>
+                                </apiSource>
+                            </apiSources>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>2.6</version>
+                        <executions>
+                            <execution>
+                                <id>copy-dockerfile</id>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals><!-- here the phase you need -->
+                                <phase>package</phase>
+                                <configuration>
+                                    <outputDirectory>${project.basedir}/target/docker-stage</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/main/docker</directory>
+                                            <includes>
+                                                <include>DockerFile</include>
+                                            </includes>
+                                            <filtering>true</filtering>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>copy-properties</id>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <phase>package</phase>
+                                <configuration>
+                                    <outputDirectory>${project.basedir}/target/docker-stage/config</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>config</directory>
+                                            <includes>
+                                                <include>*.properties</include>
+                                                <include>*.xml</include>
+                                                <include>*.spec</include>
+                                            </includes>
+                                            <filtering>false</filtering>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>copy-properties-dynamic-conf-directory</id>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <phase>package</phase>
+                                <configuration>
+                                    <outputDirectory>${project.basedir}/target/docker-stage/config/dynamic/conf</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>config/dynamic/conf</directory>
+                                            <includes>
+                                                <include>*.xml</include>
+                                            </includes>
+                                            <filtering>false</filtering>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>copy-properties-dynamic-routes-directory</id>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <phase>package</phase>
+                                <configuration>
+                                    <outputDirectory>${project.basedir}/target/docker-stage/config/dynamic/routes</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>config/dynamic/routes</directory>
+                                            <includes>
+                                                <include>*.route</include>
+                                            </includes>
+                                            <filtering>false</filtering>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>copy-properties-rules-directory</id>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <phase>package</phase>
+                                <configuration>
+                                    <outputDirectory>${project.basedir}/target/docker-stage/config/rules</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>config/rules</directory>
+                                            <includes>
+                                                <include>*.drl</include>
+                                            </includes>
+                                            <filtering>false</filtering>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>copy-script</id>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <phase>package</phase>
+                                <configuration>
+                                    <outputDirectory>${project.basedir}/target/docker-stage/</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/main/docker</directory>
+                                            <includes>
+                                                <include>*.sh</include>
+                                            </includes>
+                                            <filtering>false</filtering>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>copy-jar</id>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <phase>package</phase>
+                                <configuration>
+                                    <outputDirectory>${project.basedir}/target/docker-stage/</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>target</directory>
+                                            <includes>
+                                                <include>*.jar</include>
+                                            </includes>
+                                            <filtering>false</filtering>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
