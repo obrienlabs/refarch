@@ -1,17 +1,18 @@
 package cloud.containerization.reference.nbi;
 
+import java.util.concurrent.atomic.AtomicLong;
 
 public class Api {
 
-    private long id;
+    private AtomicLong id;
     private String content;
 
-    public Api(long id, String content) {
+    public Api(AtomicLong id, String content) {
         this.id = id;
         this.content = content;
     }
 
-    public long getId() {
+    public AtomicLong getId() {
         return id;
     }
 

@@ -34,19 +34,19 @@ public class ApiController {
     public @ResponseBody Api process(
     		@RequestParam(value="action", required=true, defaultValue="undefined") String action,
     		 HttpServletRequest request) {
-    	String message = PASS.toString();
-    	message = message +  " remoteAddr: " +
+    	String message = counter.incrementAndGet() + " " + PASS.toString();
+    	
+    	message = message +  " " + 
+    			this.getClass().getCanonicalName() + 
+    			" remoteAddr: " +
         	request.getRemoteAddr() + " localAddr: " + 
     		request.getLocalAddr() + " remoteHost: " +
         	request.getRemoteHost() + " serverName: " + 
-    		request.getServerName();
-     	Api api = new Api(counter.incrementAndGet(), message);
+    		request.getServerName() + 
+    		" parameter::action=" + action;
+     	Api api = new Api(counter, message);
      	
-    	System.out.println(counter + " " + this.getClass().getCanonicalName() + " remoteAddr: " +
-        	request.getRemoteAddr() + " localAddr: " + 
-    		request.getLocalAddr() + " remoteHost: " +
-        	request.getRemoteHost() + " serverName: " + 
-    		request.getServerName());// + " requestedSessionId: " + 
+    	System.out.println(this.getClass().getCanonicalName() + " " + message);// + " requestedSessionId: " + 
         	//request.getRequestedSessionId() + " X-FORWARDED-FOR: " +
     		//request.getHeader("X-FORWARDED-FOR"));
 
