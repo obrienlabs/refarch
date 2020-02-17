@@ -1,4 +1,4 @@
-package cloud.dev9.reference.nbi;
+package cloud.containerization.reference.nbi;
 
 
 public class Api {

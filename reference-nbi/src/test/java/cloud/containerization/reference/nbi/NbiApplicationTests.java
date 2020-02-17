@@ -1,4 +1,4 @@
-package cloud.dev9.reference.nbi;
+package cloud.containerization.reference.nbi;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
