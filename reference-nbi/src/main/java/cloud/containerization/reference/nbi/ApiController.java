@@ -1,6 +1,7 @@
 package cloud.containerization.reference.nbi;
 
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -39,7 +40,7 @@ public class ApiController {
     	String decodedQueryString = (String)request.getAttribute("qs");
     	
     	LOG.info("queryString decoded: " + decodedQueryString);
-    	parseParameters(decodedQueryString);
+    	Map<Object, Object> parameterMap = parseParameters(decodedQueryString);
     	
     	message.append(" ").append(PASS.toString());
     	message.append(" ").append(this.getClass().getCanonicalName())
@@ -54,19 +55,16 @@ public class ApiController {
     /**
      * execution=e1s1&action=test = ZXhlY3V0aW9uPWUxczEmYWN0aW9uPXRlc3Q=
      */
-    private Map<String, String> parseParameters(String decoded) {
-    	ConcurrentHashMap<String, String> map = new ConcurrentHashMap<>();
+    private Map<Object, Object> parseParameters(String decoded) {
     	// split on & delimiter
     	List<String> kvPairs = Stream.of(decoded.split("&"))
 				.map(elem -> new String(elem))
 				.collect(Collectors.toList());
-    	// map kv pairs
-    	for(String pair : kvPairs) {
-    		String[] kv = pair.split("=");
-    		map.put(kv[0], kv[1]);
-    		LOG.info("attribute: " + kv[0] + "=" + kv[1]);
-    	}
-
+    	// split on = delimiter
+    	Map<Object, Object> map = kvPairs.stream().map(s -> s.split("=")).collect(
+    			Collectors.toMap(a -> a[0], a -> a[1]));
+    	map.entrySet().stream().forEach(
+    			e -> LOG.info("Attribute: " + e.getKey() + "=" + e.getValue()));
     	return map;
     }
 }
