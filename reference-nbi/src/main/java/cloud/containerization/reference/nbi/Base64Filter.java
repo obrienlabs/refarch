@@ -25,6 +25,7 @@ public class Base64Filter implements Filter {
 		// Note: the query string does not include the anchor hash (clent) content
 		String queryString = req.getQueryString();
         LOG.info("Pre request + querystring: " + req.getRequestURI() + "?" + queryString);
+        //LOG.info(encode(queryString));
         // decode base64 encoded parameters high in the chain
         String decoded = decode(queryString);
         LOG.info("decoded: " + decoded);

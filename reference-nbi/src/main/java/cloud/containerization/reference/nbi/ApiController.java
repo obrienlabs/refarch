@@ -1,7 +1,15 @@
 package cloud.containerization.reference.nbi;
 
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,14 +37,12 @@ public class ApiController {
     	// expecting non-base64 query string from the filter chain before this call
     	String queryString = request.getQueryString();
     	String decodedQueryString = (String)request.getAttribute("qs");
+    	
     	LOG.info("queryString decoded: " + decodedQueryString);
+    	parseParameters(decodedQueryString);
     	
     	message.append(" ").append(PASS.toString());
     	message.append(" ").append(this.getClass().getCanonicalName())
-    			//.append(" remoteAddr: ").append(request.getRemoteAddr())
-    			//.append(" localAddr: ").append(request.getLocalAddr())
-    			//.append(" remoteHost: ").append(request.getRemoteHost())
-    			//.append(" serverName: ").append(request.getServerName())
     			.append(" queryString: ").append(queryString)
     			.append(" decodedQueryString: ").append(decodedQueryString);
     	
@@ -45,4 +51,22 @@ public class ApiController {
     	return api;
     } 
     
+    /**
+     * execution=e1s1&action=test = ZXhlY3V0aW9uPWUxczEmYWN0aW9uPXRlc3Q=
+     */
+    private Map<String, String> parseParameters(String decoded) {
+    	ConcurrentHashMap<String, String> map = new ConcurrentHashMap<>();
+    	// split on & delimiter
+    	List<String> kvPairs = Stream.of(decoded.split("&"))
+				.map(elem -> new String(elem))
+				.collect(Collectors.toList());
+    	// map kv pairs
+    	for(String pair : kvPairs) {
+    		String[] kv = pair.split("=");
+    		map.put(kv[0], kv[1]);
+    		LOG.info("attribute: " + kv[0] + "=" + kv[1]);
+    	}
+
+    	return map;
+    }
 }
