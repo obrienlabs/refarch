@@ -45,7 +45,11 @@ public class Base64Filter implements Filter {
 	}
 	
 	private String decode(String url) {
-		byte[] decodedBytes = Base64.getUrlDecoder().decode(url);
-		return new String(decodedBytes);
+		if(null != url) {
+			byte[] decodedBytes = Base64.getUrlDecoder().decode(url);
+			return new String(decodedBytes);
+		} else {
+			return "";
+		}
 	}
 }

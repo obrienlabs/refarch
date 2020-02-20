@@ -53,18 +53,22 @@ public class ApiController {
     } 
     
     /**
+     * MapReduce: split a string on & into a list and then each entry on the = delimiter into a map
      * execution=e1s1&action=test = ZXhlY3V0aW9uPWUxczEmYWN0aW9uPXRlc3Q=
      */
     private Map<Object, Object> parseParameters(String decoded) {
-    	// split on & delimiter
-    	List<String> kvPairs = Stream.of(decoded.split("&"))
+    	Map<Object, Object> map = null;
+    	if(null != decoded && decoded.length() > 0) {
+    		map = Stream.of(decoded
+    			.split("&"))
 				.map(elem -> new String(elem))
-				.collect(Collectors.toList());
-    	// split on = delimiter
-    	Map<Object, Object> map = kvPairs.stream().map(s -> s.split("=")).collect(
-    			Collectors.toMap(a -> a[0], a -> a[1]));
-    	map.entrySet().stream().forEach(
-    			e -> LOG.info("Attribute: " + e.getKey() + "=" + e.getValue()));
+				.collect(Collectors.toList())
+				.stream()
+    			.map(s -> s.split("="))
+    			.collect(Collectors.toMap(a -> a[0], a -> a[1]));
+    		map.entrySet().stream()
+    			.forEach(e -> LOG.info("Attribute: " + e.getKey() + "=" + e.getValue()));	
+    	}
     	return map;
     }
 }
