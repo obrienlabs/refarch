@@ -10,7 +10,9 @@ mkdir ../../$BUILD_DIR
 TARGET_DIR=../../$BUILD_DIR/$BUILD_ID
 mkdir $TARGET_DIR
 CONTAINER_IMAGE=reference-nbi
-
+cd ../../
+mvn clean install -U
+cd src/docker
 cp ../../target/*.jar $TARGET_DIR
 cp DockerFile $TARGET_DIR
 cp startService.sh $TARGET_DIR

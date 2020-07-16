@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+// change to RestController
 @Controller
 @RequestMapping("/api")
 // http://localhost:8080/nbi/api
@@ -41,11 +42,38 @@ public class ApiController {
     	
     	LOG.info("queryString decoded: " + decodedQueryString);
     	Map<Object, Object> parameterMap = parseParameters(decodedQueryString);
+    	String message2 = " : ";
+    	message2 = message2 +  " remoteAddr: " +
+            	request.getRemoteAddr() + " localAddr: " + 
+        		request.getLocalAddr() + " remoteHost: " +
+            	request.getRemoteHost() + " serverName: " + 
+        		request.getServerName();
+    	Enumeration<String> heads = request.getSession().getAttributeNames();
+    	String headers = " session attributes: ";
+    	while(heads.hasMoreElements()) {
+    		headers = headers + "," + heads.nextElement();
+    	}
+    	String reqUrl = request.getRequestURL().toString();
+    	String reqUri = request.getRequestURI();
     	
+    	String referer = request.getHeader("referer");
+    	String caller = request.getHeader("caller");
+    	String path = request.getHeader("path");
+    	String host = request.getHeader("Host");
+    	//String forwarded = request.getAttribute("X-Forwarded-For").toString();
     	message.append(" ").append(PASS.toString());
     	message.append(" ").append(this.getClass().getCanonicalName())
+    			.append(" URL: ").append(reqUrl)
+    			.append(" URI: ").append(reqUri)
+    			.append(" path: ").append(path)
+    			.append(" referer: ").append(referer)
+    			.append(" caller: ").append(caller)
+    			.append(" Host: ").append(host)
+    			//.append(" X-Forwarded-For: ").append(forwarded)
     			.append(" queryString: ").append(queryString)
-    			.append(" decodedQueryString: ").append(decodedQueryString);
+    			.append(" decodedQueryString: ").append(decodedQueryString)
+    			.append(headers)
+    			.append(message2);
     	
      	Api api = new Api(counter, message.toString());
     	LOG.info(this.getClass().getCanonicalName() + " " + message);
