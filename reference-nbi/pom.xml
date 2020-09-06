@@ -55,6 +55,19 @@
 			<scope>test</scope>
 		</dependency>
 		
+		
+	 <!-- swagger -->    
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger2</artifactId>
+        <version>2.9.2</version>
+    </dependency>
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger-ui</artifactId>
+        <version>2.9.2</version>
+    </dependency>
+	
 	 <!-- https://jersey.java.net/documentation/latest/modules-and-dependencies.html -->
     <dependency>
         <groupId>javax.ws.rs</groupId>
@@ -193,7 +206,7 @@
 	</build>
 
     <profiles>
-        <profile>
+        <!-- profile>
             <id>docker</id>
             <build>
                 <plugins>
@@ -279,7 +292,7 @@
                                 <id>copy-dockerfile</id>
                                 <goals>
                                     <goal>copy-resources</goal>
-                                </goals><!-- here the phase you need -->
+                                </goals>
                                 <phase>package</phase>
                                 <configuration>
                                     <outputDirectory>${project.basedir}/target/docker-stage</outputDirectory>
@@ -414,6 +427,6 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
+        </profile-->
     </profiles>
 </project>
