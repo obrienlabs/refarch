@@ -3,14 +3,16 @@ builds/
 target/
 !.mvn/wrapper/maven-wrapper.jar
 
+# Helm/Kubernetes
+
+
 ### AWS
 .aws-sam
 ### STS ###
 .apt_generated
-/.classpath
 .classpath
 .factorypath
-.project
+*.project
 .settings
 .springBeans
 .sts4-cache
