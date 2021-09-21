@@ -35,3 +35,6 @@ docker run --name $CONTAINER_IMAGE \
 
 cd ../../src/docker
 
+#helm3 delete reference-nbi
+#sudo helm3 package reference-nbi
+#helm3 install --set name=reference-nbi reference-nbi ./reference-nbi

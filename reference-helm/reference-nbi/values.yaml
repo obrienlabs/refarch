@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: nginx
-  tag: stable
+  repository: obrienlabs/reference-nbi
+  tag: 0.0.1
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -31,9 +31,12 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+
 service:
-  type: ClusterIP
-  port: 80
+# expose externally
+  type: NodePort
+  port: 8080
+  nodePort: 30040
 
 ingress:
   enabled: false
