@@ -69,7 +69,8 @@ public class ApiController {
         }
         
     	String secret = System.getenv("spring.user.password");
-    	String secret2 = System.getenv("HOME");    	
+    	String secret2 = System.getenv("HOME");  
+    	String username = System.getenv("DB_USERNAME");
     	//String forwarded = request.getAttribute("X-Forwarded-For").toString();
     	message.append(" ").append(PASS.toString());
     	message.append(" ").append(this.getClass().getCanonicalName())
@@ -83,7 +84,8 @@ public class ApiController {
     			.append(" queryString: ").append(queryString)
     			.append(" decodedQueryString: ").append(decodedQueryString)
     			.append(" secret1: ").append(secret)
-    			.append(" secret2: ").append(secret2)   			
+    			.append(" secret2: ").append(secret2)  
+    			.append(" username: ").append(username)
     			.append(headers)
     			.append(message2);
     	
