@@ -11,7 +11,7 @@ TARGET_DIR=../../$BUILD_DIR/$BUILD_ID
 mkdir $TARGET_DIR
 CONTAINER_IMAGE=reference-nbi
 cd ../../
-mvn clean install -U
+mvn clean install -U -DskipTests=true
 cd src/docker
 cp ../../target/*.jar $TARGET_DIR
 cp DockerFile $TARGET_DIR
