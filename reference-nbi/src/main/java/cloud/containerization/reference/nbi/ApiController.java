@@ -60,6 +60,16 @@ public class ApiController {
     	String caller = request.getHeader("caller");
     	String path = request.getHeader("path");
     	String host = request.getHeader("Host");
+    	
+        Map<String, String> env = System.getenv();
+        for (String envName : env.keySet()) {
+            System.out.format("%s=%s%n",
+                              envName,
+                              env.get(envName));
+        }
+        
+    	String secret = System.getenv("spring.user.password");
+    	String secret2 = System.getenv("HOME");    	
     	//String forwarded = request.getAttribute("X-Forwarded-For").toString();
     	message.append(" ").append(PASS.toString());
     	message.append(" ").append(this.getClass().getCanonicalName())
@@ -72,10 +82,14 @@ public class ApiController {
     			//.append(" X-Forwarded-For: ").append(forwarded)
     			.append(" queryString: ").append(queryString)
     			.append(" decodedQueryString: ").append(decodedQueryString)
+    			.append(" secret1: ").append(secret)
+    			.append(" secret2: ").append(secret2)   			
     			.append(headers)
     			.append(message2);
     	
      	Api api = new Api(counter, message.toString());
+     	LOG.info("secret: " + secret);
+     	LOG.info("secret2: " + secret2);     	
     	LOG.info(this.getClass().getCanonicalName() + " " + message);
     	return api;
     } 

@@ -69,6 +69,7 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
 			ie.printStackTrace();
 		}
 	}
+	
     private String getPageContents(String address) throws IOException{
         URL url = new URL(address);
         try(BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()))) {
