@@ -36,7 +36,7 @@ service:
 # expose externally
   type: NodePort
   port: 8080
-  nodePort: 30040
+  nodePort: 30050
 
 ingress:
   enabled: false
