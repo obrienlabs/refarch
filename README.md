@@ -1,6 +1,7 @@
 # Reference Architecture
 http://wiki.obrienlabs.cloud/display/DEV/Reference+Architecture#ReferenceArchitecture-DevOps
 
+use instead latest in https://github.com/cloud-quickstart/reference-architecture
 ## Requirements
 
 ## Projects
